@@ -1,0 +1,179 @@
+<template>
+  <div class="clock-main">
+    <div id="block1">
+      <div class="clockampm">{{ ap }}</div>
+    </div>
+    <div id="block2">
+      <div class="clocktime">{{ time }}</div>
+      <div class="clockdate">
+        {{ date }}/{{ daysInMonth }}
+        <span style="margin-left: 30px">{{ day }}</span>
+      </div>
+    </div>
+
+
+    <div id="block3">
+      <div class="greetings">
+        {{greet}} Northes
+      </div>
+      <div id="quote">The moon watched from the sky behind the clouds as the stars blink their eyes in fatigue. Everything is now in slumber, not a single sound nor a single movement can be seen or heard.</div>
+      <div id="author">-- Nameless</div>
+    </div>
+
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Clock",
+  data() {
+    return {
+      time: null,
+      ap: null,
+      date: null,
+      daysInMonth: null,
+      day: null,
+      greet:'Hello'
+    }
+  },
+  created() {
+    this.setTime()
+    setInterval(this.setTime, 1000)
+  },
+  methods: {
+    setTime() {
+      this.time = this.dayjs().format('hh·mm·ss')
+      this.ap = this.dayjs().format('A')
+      this.date = this.dayjs().format('YYYY  MM  DD')
+      this.daysInMonth = this.dayjs().daysInMonth()
+      this.day = this.getDay(this.dayjs().day())
+      this.greet = this.getGreeting(this.dayjs().get('hour'))
+    },
+    getDay(num) {
+      switch (num) {
+        case 1:
+          return '星期一'
+        case 2:
+          return '星期二'
+        case 3:
+          return '星期三'
+        case 4:
+          return '星期四'
+        case 5:
+          return '星期五'
+        case 6:
+          return '星期六'
+        case 7:
+          return '星期日'
+      }
+    },
+    getGreeting(hour) {
+      if (hour < 4){
+        return "Good Night,"
+      } else if (hour < 10) {
+        return "Morning,"
+      } else if (hour < 16) {
+        return "Afternoon,"
+      } else if (hour < 21) {
+        return "Evening,"
+      }else {
+        return "Good Night,"
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+.clock-main {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #f1f3f5;
+}
+
+#block1 {
+  text-align: left;
+  width: 75%;
+  left: 12.5%;
+  margin: auto;
+}
+
+.clockampm {
+  letter-spacing: 1px;
+  font-weight: bold;
+  animation: fadein 2s;
+  -moz-animation: fadein 2s;
+  -webkit-animation: fadein 2s;
+  -o-animation: fadein 2s;
+}
+
+
+#block2 {
+  text-align: center;
+  width: 100%;
+  margin-top: -40px;
+  margin-bottom: 60px;
+}
+
+.clocktime {
+  font-size: 20vw;
+  font-weight: bold;
+  display: inline;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  -webkit-animation: fadein 3s;
+  -o-animation: fadein 3s;
+  font-family: 'Helvetica', sans-serif;
+  -webkit-text-stroke: 2px #fff;
+  color: #fff;
+  opacity: 0.8;
+}
+
+.clockdate {
+  font-size: 1.2vw;
+  margin-top: -10px;
+}
+
+
+#block3 {
+  text-align: left;
+  width: 75%;
+  left: 12.5%;
+  margin: auto;
+}
+
+.greetings {
+  letter-spacing: 1px;
+  animation: fadein 4s;
+  -moz-animation: fadein 4s;
+  -webkit-animation: fadein 4s;
+  -o-animation: fadein 4s;
+  z-index: 999;
+  padding: 0 0 5px 0;
+  font-size: 2vw;
+  font-weight: 300;
+}
+
+
+#quote {
+  text-align: left;
+  width: 53%;
+  animation: fadein 6s;
+  -moz-animation: fadein 6s;
+  -webkit-animation: fadein 6s;
+  -o-animation: fadein 6s;
+  padding: 0 0 5px 0;
+}
+
+#author {
+  letter-spacing: 1px;
+  animation: fadein 7s;
+  -moz-animation: fadein 7s;
+  -webkit-animation: fadein 7s;
+  -o-animation: fadein 7s;
+}
+</style>
