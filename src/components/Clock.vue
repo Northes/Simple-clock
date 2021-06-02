@@ -37,7 +37,7 @@ export default {
       daysInMonth: null,
       day: null,
       greet: 'Hello',
-      greetSentence: ''
+      greetSentence: 'Nice to meet you.'
     }
   },
   created() {
@@ -78,7 +78,7 @@ export default {
     getGreeting() {
       var vm = this
       axios.get('https://apihut.net/greet').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         vm.greet = res.data.data.words
         vm.greetSentence = res.data.data.sentence
       })
