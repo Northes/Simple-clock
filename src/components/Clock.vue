@@ -6,7 +6,7 @@
     <div id="block2">
       <div class="clocktime">{{ time }}</div>
       <div class="clockdate">
-        {{ date }}/{{ daysInMonth }}
+        {{ date }} / <span style="font-size: 18px">{{ daysInMonth }}</span>
         <span style="margin-left: 30px">{{ day }}</span>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <div class="greetings">
         {{ greet }}, Northes
       </div>
-      <div id="quote">{{greetSentence}}
+      <div id="quote">{{ greetSentence }}
       </div>
       <div id="author">-- Nameless</div>
     </div>
