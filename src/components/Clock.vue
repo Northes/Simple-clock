@@ -33,7 +33,7 @@ export default {
       time: null,
       ap: null,
       date: null,
-      hour: 0,
+      hour: -1,
       daysInMonth: null,
       day: null,
       greet: 'Hello',
@@ -46,7 +46,6 @@ export default {
   },
   methods: {
     setTime() {
-      var vm = this
       var oldHour = this.hour
       this.time = this.dayjs().format('hh·mm·ss')
       this.hour = this.dayjs().get('hour')
@@ -54,13 +53,8 @@ export default {
       this.date = this.dayjs().format('YYYY  MM  DD')
       this.daysInMonth = this.dayjs().daysInMonth()
       this.day = this.getDay(this.dayjs().day())
-      // this.greet = this.getGreeting(this.dayjs().get('hour'))
       if (oldHour !== this.hour) {
-        axios.get('https://apihut.net/greet').then(res => {
-          console.log(res.data)
-          vm.greet = res.data.data.words
-          vm.greetSentence = res.data.data.sentence
-        })
+        this.getGreeting()
       }
     },
     getDay(num) {
@@ -81,18 +75,13 @@ export default {
           return '星期日'
       }
     },
-    getGreeting(hour) {
-      if (hour < 4) {
-        return "Good Night,"
-      } else if (hour < 10) {
-        return "Morning,"
-      } else if (hour < 16) {
-        return "Afternoon,"
-      } else if (hour < 21) {
-        return "Evening,"
-      } else {
-        return "Good Night,"
-      }
+    getGreeting() {
+      var vm = this
+      axios.get('https://apihut.net/greet').then(res => {
+        console.log(res.data)
+        vm.greet = res.data.data.words
+        vm.greetSentence = res.data.data.sentence
+      })
     }
   }
 }
