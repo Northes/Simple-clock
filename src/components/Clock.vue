@@ -6,9 +6,16 @@
     <div id="block2">
       <div id="clocktime">{{ time }}</div>
       <div id="clockdate">
-        <span style="font-size: 1.2vw">{{date}}</span> / <span style="font-size: 0.5vw">{{ daysInMonth }}</span>
+        <span style="font-size: 1.2vw">{{ date }}</span> / <span style="font-size: 0.5vw">{{ daysInMonth }}</span>
         <span style="margin-left: 30px;font-size: 1.2vw">{{ day }}</span>
       </div>
+      <div id="weather">
+        <span>{{ city }}</span>
+        <span style="margin-left: 10px">
+          {{ weather[0].daytemp }}°C  {{ weather[0].dayweather }}-{{ weather[1].nightweather }}
+          /
+          {{ weather[1].daytemp }}°C  {{ weather[1].dayweather }}-{{ weather[1].nightweather }}
+        </span>
       </div>
     </div>
 
@@ -38,11 +45,38 @@ export default {
       daysInMonth: null,
       day: null,
       greet: 'Hello',
-      greetSentence: 'Nice to meet you.'
+      greetSentence: 'Nice to meet you.',
+      city: "",
+      weather: [
+        {
+          date: "2021-06-04",
+          week: "5",
+          dayweather: "中雨",
+          nightweather: "阴",
+          daytemp: "28",
+          nighttemp: "23",
+          daywind: "西北",
+          nightwind: "西北",
+          daypower: "4",
+          nightpower: "4"
+        },
+        {
+          date: "2021-06-05",
+          week: "6",
+          dayweather: "多云",
+          nightweather: "多云",
+          daytemp: "31",
+          nighttemp: "24",
+          daywind: "北",
+          nightwind: "北",
+          daypower: "≤3",
+          nightpower: "≤3"
+        }]
     }
   },
   created() {
     this.setTime()
+    this.getCity()
     setInterval(this.setTime, 1000)
   },
   methods: {
@@ -82,6 +116,30 @@ export default {
         // console.log(res.data)
         vm.greet = res.data.data.words
         vm.greetSentence = res.data.data.sentence
+      })
+    },
+    getCity() {
+      var vm = this
+      axios.get("https://apihut.net/ip").then(res => {
+        console.log(res.data.data)
+        if (res.data.data.district.length === 0) {
+          vm.city = res.data.data.city
+        } else {
+          vm.city = res.data.data.district
+        }
+        console.log(vm.city)
+        this.getWeather()
+      })
+    },
+    getWeather() {
+      var vm = this
+      axios.get("https://apihut.net/weather", {
+        params: {
+          type: "all",
+          city: vm.city
+        }
+      }).then(res => {
+        vm.weather = res.data.data[0].casts
       })
     }
   }
@@ -147,6 +205,14 @@ export default {
   -o-animation: fadein 3s;
 }
 
+#weather {
+  position: relative;
+  top: -8px;
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  -webkit-animation: fadein 3s;
+  -o-animation: fadein 3s;
+}
 
 #block3 {
   text-align: left;
@@ -188,31 +254,34 @@ export default {
 
 @keyframes fadein {
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
-    opacity:1;
+    opacity: 1;
   }
 }
+
 @-moz-keyframes fadein { /* Firefox */
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
-    opacity:1;
+    opacity: 1;
   }
 }
+
 @-webkit-keyframes fadein { /* Safari and Chrome */
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
-    opacity:1;
+    opacity: 1;
   }
 }
+
 @-o-keyframes fadein { /* Opera */
   from {
-    opacity:0;
+    opacity: 0;
   }
   to {
     opacity: 1;
