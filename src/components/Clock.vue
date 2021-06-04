@@ -1,19 +1,20 @@
 <template>
-  <div class="clock-main">
+  <div id="clock-main">
     <div id="block1">
-      <div class="clockampm">{{ ap }}</div>
+      <div id="clockampm">{{ ap }}</div>
     </div>
     <div id="block2">
-      <div class="clocktime">{{ time }}</div>
-      <div class="clockdate">
-        {{ date }} / <span style="font-size: 18px">{{ daysInMonth }}</span>
-        <span style="margin-left: 30px">{{ day }}</span>
+      <div id="clocktime">{{ time }}</div>
+      <div id="clockdate">
+        <span style="font-size: 1.2vw">{{date}}</span> / <span style="font-size: 0.5vw">{{ daysInMonth }}</span>
+        <span style="margin-left: 30px;font-size: 1.2vw">{{ day }}</span>
+      </div>
       </div>
     </div>
 
 
     <div id="block3">
-      <div class="greetings">
+      <div id="greetings">
         {{ greet }}, Northes
       </div>
       <div id="quote">{{ greetSentence }}
@@ -88,7 +89,7 @@ export default {
 </script>
 
 <style scoped>
-.clock-main {
+#clock-main {
   position: absolute;
   width: 100%;
   top: 50%;
@@ -103,7 +104,7 @@ export default {
   margin: auto;
 }
 
-.clockampm {
+#clockampm {
   letter-spacing: 1px;
   font-weight: bold;
   animation: fadein 2s;
@@ -117,10 +118,9 @@ export default {
   text-align: center;
   width: 100%;
   margin-top: -40px;
-  margin-bottom: 60px;
 }
 
-.clocktime {
+#clocktime {
   font-size: 20vw;
   font-weight: bold;
   display: inline;
@@ -136,9 +136,15 @@ export default {
   opacity: 0.8;
 }
 
-.clockdate {
-  font-size: 1.2vw;
-  margin-top: -10px;
+#clockdate {
+  /*font-size: 1.2vw;*/
+  /*margin-top: -20px;*/
+  position: relative;
+  top: -25px;
+  animation: fadein 3s;
+  -moz-animation: fadein 3s;
+  -webkit-animation: fadein 3s;
+  -o-animation: fadein 3s;
 }
 
 
@@ -149,7 +155,7 @@ export default {
   margin: auto;
 }
 
-.greetings {
+#greetings {
   letter-spacing: 1px;
   animation: fadein 4s;
   -moz-animation: fadein 4s;
@@ -157,7 +163,7 @@ export default {
   -o-animation: fadein 4s;
   z-index: 999;
   padding: 0 0 5px 0;
-  font-size: 2vw;
+  font-size: 1.8vw;
   font-weight: 300;
 }
 
