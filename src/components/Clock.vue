@@ -219,6 +219,7 @@ export default {
   width: 75%;
   left: 12.5%;
   margin: auto;
+  padding-top: 30px;
 }
 
 #greetings {
