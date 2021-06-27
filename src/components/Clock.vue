@@ -114,7 +114,7 @@ export default {
       var vm = this
       axios.get('https://apihut.net/greet').then(res => {
         // console.log(res.data)
-        vm.greet = res.data.data.words
+        vm.greet = res.data.data.word
         vm.greetSentence = res.data.data.sentence
       })
     },
